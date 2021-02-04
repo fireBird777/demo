@@ -1,15 +1,34 @@
 package com.example.demo.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+@Table(name = "article")
 public class Article implements Serializable {
+    @Id
+    @Column(name = "article_id")
     private int articleId;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "short_title")
     private String shortTitle;
+
+    @Column(name = "no_of_pages")
     private int noOfPages;
+
+    @Column(name = "author_name")
     private String authorName;
+
+    @Column(name = "author_email_address")
     private String authorEmailAddress;
+
+    @Column(name = "is_active")
     private boolean isActive;
+
+    @Column(name = "is_published")
     private boolean isPublished;
 
     public int getArticleId() {
