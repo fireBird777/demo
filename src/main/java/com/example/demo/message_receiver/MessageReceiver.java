@@ -5,6 +5,7 @@ import com.example.demo.service.ArticleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,7 @@ public class MessageReceiver {
     @Autowired
     ArticleService articleService;
 
-    @JmsListener(destination = "MESSAGE_QUEUE")
+    @JmsListener(destination = "${outbound.endpoint}")
     public void messageListner(Article article)
     {
         try{
