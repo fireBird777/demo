@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class PublishController {
+public class ArticleController {
     @Autowired
     JmsTemplate jmsTemplate;
 
-    @Value("${inbound.endpoint}")
-    private String inboundEndpoint;
+
 
 
     @PostMapping("/publishOrUpdateArticle")
@@ -26,7 +25,7 @@ public class PublishController {
 
         try
         {
-            jmsTemplate.convertAndSend(inboundEndpoint,article);
+            jmsTemplate.convertAndSend("IBOUND",article);
             return new ResponseEntity<>("sent",HttpStatus.OK);
         }catch (Exception e)
         {
