@@ -1,40 +1,29 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Article;
+import com.example.demo.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class ArticleController {
+
     @Autowired
-    JmsTemplate jmsTemplate;
+    ArticleService articleService;
 
-
-
-
-    @PostMapping("/publishOrUpdateArticle")
-    public ResponseEntity<String> publishArticle(@RequestBody Article article)
+    @GetMapping("/Articles")
+    public List<Article> getAllArticles()
     {
-
-        try
-        {
-            jmsTemplate.convertAndSend("IBOUND",article);
-            return new ResponseEntity<>("sent",HttpStatus.OK);
-        }catch (Exception e)
-        {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
+        return articleService.getAllArticles() ;
     }
 
-
-
-
+    @GetMapping("/Articles/{articleId}")
+    public Article getAllArticlesById(@PathVariable int articleId)
+    {
+        return articleService.getArticlesById(articleId);
+    }
 }
