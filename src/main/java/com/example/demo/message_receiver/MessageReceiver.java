@@ -17,17 +17,12 @@ import java.util.List;
 
 
 @Component
-@Service
 public class MessageReceiver  extends RouteBuilder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MessageReceiver.class);
 
     @Autowired
     DataSource dataSource;
-
-    @Autowired
-    ProducerTemplate producerTemplate;
-
 
     public DataSource getDataSource() {
         return dataSource;
@@ -39,24 +34,11 @@ public class MessageReceiver  extends RouteBuilder {
 
 
 
-    @JmsListener(destination = "IBOUND")
-    public void messageListner(Article article)
-    {
-        try{
-            LOGGER.info("message is...."+article);
-            producerTemplate.requestBody("direct:insert", article,List.class);
-        }
-        catch(Exception e)
-        {e.printStackTrace();}
-
-    }
-
-
     @Override
     public void configure() throws Exception {
 
         //Insert/update Route
-        from("direct:insert").process(new Processor() {
+        from("jms:queue:IBOUND").process(new Processor() {
             public void process(Exchange xchg) throws Exception {
                 //Take the Employee object from the exchange and create the insert query
                 Article article = xchg.getIn().getBody(Article.class);
