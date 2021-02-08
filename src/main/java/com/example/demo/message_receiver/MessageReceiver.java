@@ -1,5 +1,6 @@
 package com.example.demo.message_receiver;
 
+import com.example.demo.controller.ArticleController;
 import com.example.demo.model.Article;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -33,7 +34,6 @@ public class MessageReceiver  extends RouteBuilder {
     }
 
 
-
     @Override
     public void configure() throws Exception {
 
@@ -43,28 +43,9 @@ public class MessageReceiver  extends RouteBuilder {
                 //Take the Employee object from the exchange and create the insert query
                 Article article = xchg.getIn().getBody(Article.class);
 
-                String query = "INSERT INTO article (article_id,title,short_title,no_of_pages,author_name,author_email_address,is_active,is_published) VALUES ('"
-                        +article.getArticleId()+"','"
-                        +article.getTitle()+"','"
-                        +article.getShortTitle()+"','"
-                        +article.getNoOfPages()+"','"
-                        +article.getAuthorName()+"','"
-                        +article.getAuthorEmailAddress()+"','"
-                        +article.isActive()+"','"
-                        +article.isPublished()+"') ON CONFLICT (article_id) DO UPDATE SET" +
-                        " article_id = excluded.article_id, " +
-                        "title = excluded.title," +
-                        "short_title=excluded.short_title," +
-                        "no_of_pages=excluded.no_of_pages," +
-                        "author_name=excluded.author_name," +
-                        "author_email_address=excluded.author_email_address," +
-                        "is_active=excluded.is_active," +
-                        "is_published=excluded.is_published";
-
-
                 // Set the insert/update query in body and call camel jdbc
-                xchg.getIn().setBody(query);
+                xchg.getIn().setBody(article);
             }
-        }).to("jdbc:dataSource");
+        }).bean(ArticleController.class,"insertArticle(${body}, true)");
     }
 }

@@ -22,7 +22,7 @@ public class ArticleDao {
         List<Article> articles = query.getResultList();
 
         for (Article article: articles
-             ) {
+        ) {
 
         }
         return articles;
@@ -34,5 +34,11 @@ public class ArticleDao {
         Article article = session.get(Article.class,articlesId);
 
         return article;
+    }
+
+    public  void insertArticle(Article article)
+    {
+        Session session = entityManager.unwrap((Session.class));
+        session.saveOrUpdate(article);
     }
 }
