@@ -40,11 +40,7 @@ public class MessageReceiver  extends RouteBuilder {
         //Insert/update Route
         from("jms:queue:IBOUND").process(new Processor() {
             public void process(Exchange xchg) throws Exception {
-                //Take the Employee object from the exchange and create the insert query
-                Article article = xchg.getIn().getBody(Article.class);
 
-                // Set the insert/update query in body and call camel jdbc
-                xchg.getIn().setBody(article);
             }
         }).bean(ArticleController.class,"insertArticle(${body}, true)");
     }
