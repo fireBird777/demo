@@ -15,21 +15,21 @@ public class ArticleService {
     ArticleDao articleDao;
 
     @Transactional
-    public List<Article> getAllArticles()
+    public List<Article> findAll()
     {
-        return  articleDao.getAllArticles();
+        return  articleDao.findAll();
     }
 
     @Transactional
-    public Article getArticlesById(int articleId)
+    public Article findById(int articleId)
     {
-        return  articleDao.getArticleById(articleId);
+        return  articleDao.findById(articleId);
     }
 
     @Transactional
-    public  void insertArticle(Article article)
+    public  void save(Article article)
     {
-        articleDao.insertArticle(article);
+        articleDao.save(article);
     }
 }
 

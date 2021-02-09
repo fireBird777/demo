@@ -1,10 +1,17 @@
 package com.example.demo.model;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import java.io.Serializable;
 
 @Entity
-@Table(name = "article")
+@Getter @Setter
+@Table(name= "`Article`")
 public class Article implements Serializable {
     @Id
     @Column(name = "article_id")
@@ -25,75 +32,11 @@ public class Article implements Serializable {
     @Column(name = "author_email_address")
     private String authorEmailAddress;
 
-    @Column(name = "is_active")
+    @Column(name = "is_active" ,nullable = false)
     private boolean isActive;
 
-    @Column(name = "is_published")
+    @Column(name = "is_published", nullable = false)
     private boolean isPublished;
-
-    public int getArticleId() {
-        return articleId;
-    }
-
-    public void setArticleId(int articleId) {
-        this.articleId = articleId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getShortTitle() {
-        return shortTitle;
-    }
-
-    public void setShortTitle(String shortTitle) {
-        this.shortTitle = shortTitle;
-    }
-
-    public int getNoOfPages() {
-        return noOfPages;
-    }
-
-    public void setNoOfPages(int noOfPages) {
-        this.noOfPages = noOfPages;
-    }
-
-    public String getAuthorName() {
-        return authorName;
-    }
-
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
-    }
-
-    public String getAuthorEmailAddress() {
-        return authorEmailAddress;
-    }
-
-    public void setAuthorEmailAddress(String authorEmailAddress) {
-        this.authorEmailAddress = authorEmailAddress;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public boolean isPublished() {
-        return isPublished;
-    }
-
-    public void setPublished(boolean published) {
-        isPublished = published;
-    }
 
     @Override
     public String toString() {

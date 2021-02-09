@@ -1,7 +1,6 @@
 package com.example.demo.dao;
 
 import com.example.demo.model.Article;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -15,30 +14,25 @@ public class ArticleDao {
     @Autowired
     EntityManager entityManager;
 
-    public List<Article> getAllArticles()
+    public List<Article> findAll()
     {
-        Session session = entityManager.unwrap(Session.class);
-        Query query = session.createQuery("from Article",Article.class);
+        Query query = entityManager.createQuery("from Article");
         List<Article> articles = query.getResultList();
 
-        for (Article article: articles
-        ) {
-
-        }
         return articles;
     }
 
-    public  Article getArticleById(int articlesId)
+    public  Article findById(int articlesId)
     {
-        Session session = entityManager.unwrap(Session.class);
-        Article article = session.get(Article.class,articlesId);
+        Article article = entityManager.find(Article.class,articlesId);
 
         return article;
     }
 
-    public  void insertArticle(Article article)
+    public  void save(Article article)
     {
-        Session session = entityManager.unwrap((Session.class));
-        session.saveOrUpdate(article);
+       Article theArticle = entityManager.merge(article);
+       theArticle.setArticleId(article.getArticleId());
+
     }
 }

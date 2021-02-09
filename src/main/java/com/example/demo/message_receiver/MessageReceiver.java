@@ -19,6 +19,6 @@ public class MessageReceiver  extends RouteBuilder {
             public void process(Exchange xchg) throws Exception {
 
             }
-        }).bean(ArticleController.class,"insertArticle(${body}, true)");
+        }).bean(ArticleController.class,"save(${body}, true)");
     }
 }

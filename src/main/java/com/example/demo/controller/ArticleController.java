@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import com.example.demo.model.Article;
 import com.example.demo.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,20 +16,20 @@ public class ArticleController {
     ArticleService articleService;
 
 
-    public  void insertArticle(Article article)
+    public  void save(Article article)
     {
-        articleService.insertArticle(article);
+        articleService.save(article);
     }
 
     @GetMapping("/Articles")
-    public List<Article> getAllArticles()
+    public List<Article> findAll()
     {
-        return articleService.getAllArticles() ;
+        return articleService.findAll() ;
     }
 
     @GetMapping("/Articles/{articleId}")
     public Article getAllArticlesById(@PathVariable int articleId)
     {
-        return articleService.getArticlesById(articleId);
+        return articleService.findById(articleId);
     }
 }
