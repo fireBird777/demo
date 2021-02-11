@@ -28,7 +28,7 @@ public class ArticleController {
     }
 
     @GetMapping("/Articles/{articleId}")
-    public Article getAllArticlesById(@PathVariable int articleId)
+    public Article findById(@PathVariable int articleId)
     {
         return articleService.findById(articleId);
     }

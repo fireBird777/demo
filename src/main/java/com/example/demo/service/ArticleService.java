@@ -27,9 +27,10 @@ public class ArticleService {
     }
 
     @Transactional
-    public  void save(Article article)
+    public  Article save(Article article)
     {
-        articleDao.save(article);
+        Article theArticle =articleDao.save(article);
+        return theArticle;
     }
 }
 

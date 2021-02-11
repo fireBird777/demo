@@ -1,6 +1,7 @@
 package com.example.demo.model;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +11,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Getter @Setter
+@Getter @Setter @ToString
 @Table(name= "`Article`")
 public class Article implements Serializable {
     @Id
@@ -38,17 +39,17 @@ public class Article implements Serializable {
     @Column(name = "is_published", nullable = false)
     private boolean isPublished;
 
-    @Override
-    public String toString() {
-        return "Article{" +
-                "articleId=" + articleId +
-                ", title='" + title + '\'' +
-                ", shortTitle='" + shortTitle + '\'' +
-                ", noOfPages=" + noOfPages +
-                ", authorName='" + authorName + '\'' +
-                ", authorEmailAddress='" + authorEmailAddress + '\'' +
-                ", isActive=" + isActive +
-                ", isPublished=" + isPublished +
-                '}';
+    public Article(int articleId, String title, String shortTitle, int noOfPages, String authorName, String authorEmailAddress, boolean isActive, boolean isPublished) {
+        this.articleId = articleId;
+        this.title = title;
+        this.shortTitle = shortTitle;
+        this.noOfPages = noOfPages;
+        this.authorName = authorName;
+        this.authorEmailAddress = authorEmailAddress;
+        this.isActive = isActive;
+        this.isPublished = isPublished;
+    }
+
+    public Article() {
     }
 }

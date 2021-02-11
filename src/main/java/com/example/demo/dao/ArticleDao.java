@@ -29,10 +29,11 @@ public class ArticleDao {
         return article;
     }
 
-    public  void save(Article article)
+    public  Article save(Article article)
     {
        Article theArticle = entityManager.merge(article);
        theArticle.setArticleId(article.getArticleId());
+       return theArticle;
 
     }
 }
