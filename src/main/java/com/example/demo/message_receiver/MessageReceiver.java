@@ -15,10 +15,6 @@ public class MessageReceiver  extends RouteBuilder {
     public void configure() throws Exception {
 
         //Insert/update Route
-        from("jms:queue:IBOUND").process(new Processor() {
-            public void process(Exchange xchg) throws Exception {
-
-            }
-        }).bean(ArticleController.class,"save(${body}, true)");
+        from("jms:queue:IBOUND").bean(ArticleController.class,"save(${body}, true)");
     }
 }
