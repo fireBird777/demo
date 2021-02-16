@@ -39,17 +39,5 @@ public class Article implements Serializable {
     @Column(name = "is_published", nullable = false)
     private boolean isPublished;
 
-    public Article(int articleId, String title, String shortTitle, int noOfPages, String authorName, String authorEmailAddress, boolean isActive, boolean isPublished) {
-        this.articleId = articleId;
-        this.title = title;
-        this.shortTitle = shortTitle;
-        this.noOfPages = noOfPages;
-        this.authorName = authorName;
-        this.authorEmailAddress = authorEmailAddress;
-        this.isActive = isActive;
-        this.isPublished = isPublished;
-    }
 
-    public Article() {
-    }
 }
