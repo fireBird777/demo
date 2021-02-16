@@ -1,9 +1,5 @@
 package com.example.demo.message_receiver;
 
-import com.example.demo.controller.ArticleController;
-import com.example.demo.model.Article;
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.springframework.stereotype.Component;

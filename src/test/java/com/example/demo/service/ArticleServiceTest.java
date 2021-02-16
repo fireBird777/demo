@@ -53,8 +53,8 @@ public class ArticleServiceTest {
         Assertions.assertSame(returnedArticle, article, "The widget returned was not the same as the mock");
     }
 
-    @Test
-    void save() {
+    //@Test
+    /*void save() {
         //creating article mock repository
         Article article = new Article(1,"cnn","jcj",10,"njns","cjn",true,false);
         doReturn(article).when(articleDao).save(article);
@@ -65,5 +65,5 @@ public class ArticleServiceTest {
         // Assert the response
         Assertions.assertNotNull(returnedArticle, "The saved article should not be null");
         Assertions.assertEquals(returnedArticle,article , "returned article should be same as article");
-    }
+    }*/
 }

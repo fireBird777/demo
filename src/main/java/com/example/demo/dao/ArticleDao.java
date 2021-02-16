@@ -36,4 +36,10 @@ public class ArticleDao {
        return theArticle;
 
     }
+
+    public void deleteById(int articleId) {
+        Article theArticle = entityManager.find(Article.class,articleId);
+        entityManager.remove(theArticle);
+
+    }
 }

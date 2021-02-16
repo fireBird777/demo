@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.Article;
 import com.example.demo.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,12 +15,13 @@ public class ArticleController {
     ArticleService articleService;
 
 
+
     @PostMapping("/SaveArticle")
-    public  void save(
-            @RequestBody Article article)
+    public  ResponseEntity<String> save(@RequestBody Article article)
     {
-        articleService.save(article);
+        return articleService.save(article);
     }
+
 
     @GetMapping("/Articles")
     public List<Article> findAll()
@@ -27,9 +29,17 @@ public class ArticleController {
         return articleService.findAll() ;
     }
 
+
     @GetMapping("/Articles/{articleId}")
     public Article findById(@PathVariable int articleId)
     {
         return articleService.findById(articleId);
+    }
+
+
+    @DeleteMapping("Articles/{articleId}")
+    public ResponseEntity<String> deleteById(@PathVariable int articleId)
+    {
+         return articleService.deleteById(articleId);
     }
 }
