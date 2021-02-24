@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.activemq_apache_camel.config;
 
 import com.google.common.base.Predicate;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +25,7 @@ public class SwaggerConfig {
     }
 
     private Predicate<String> postPaths() {
-        return or(regex("/Articles.*"), regex("/UpdateArticle.*"));
+        return or(regex("/articles.*"), regex("/publisher/articles.*"));
     }
 
     private ApiInfo apiInfo() {

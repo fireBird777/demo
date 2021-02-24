@@ -1,7 +1,8 @@
-package com.example.demo.service;
+package com.activemq_apache_camel.service;
 
-import com.example.demo.dao.ArticleDaoI;
-import com.example.demo.model.Article;
+import com.activemq_apache_camel.exceptions.ArticleNotFound;
+import com.activemq_apache_camel.repository.ArticleRepository;
+import com.activemq_apache_camel.model.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,13 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ArticleService {
 
     @Autowired
-    ArticleDaoI articleDao;
+    ArticleRepository articleDao;
 
     @Transactional
     public List<Article> findAll()
@@ -24,9 +24,9 @@ public class ArticleService {
     }
 
     @Transactional
-    public Optional<Article> findById(int articleId)
+    public Article findById(int articleId)
     {
-        return  articleDao.findById(articleId);
+        return  articleDao.findById(articleId).orElseThrow(()->new ArticleNotFound(articleId));
     }
 
     @Transactional
@@ -50,7 +50,7 @@ public class ArticleService {
         try
         {
             articleDao.deleteById(articleId);
-            return new ResponseEntity<>("saved", HttpStatus.OK);
+            return new ResponseEntity<>("deleted", HttpStatus.OK);
         }catch (Exception e)
         {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

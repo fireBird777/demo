@@ -1,7 +1,5 @@
-package com.example.demo.model;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+package com.activemq_apache_camel.model;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +9,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Getter @Setter @ToString
+@Getter @Setter @ToString @Builder @NoArgsConstructor @AllArgsConstructor
 @Table(name= "`Article`")
 public class Article implements Serializable {
     @Id

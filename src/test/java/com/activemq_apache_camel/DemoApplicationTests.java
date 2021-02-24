@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.activemq_apache_camel;
 
 
 import org.junit.jupiter.api.Test;
