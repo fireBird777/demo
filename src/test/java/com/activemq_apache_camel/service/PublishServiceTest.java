@@ -58,7 +58,7 @@ class PublishServiceTest {
     }
 
     @Test
-    void publishArticle_returns_response_as_sent() throws Exception{
+    void publishArticle_returns_response_status_as_OK() throws Exception{
 
         doNothing().when(jmsTemplate).convertAndSend(message,article);
         ResponseEntity<String> response = publishService.publishArticle(article);
@@ -67,7 +67,7 @@ class PublishServiceTest {
     }
 
     @Test
-    void publishArticle_returns_response_as_error() throws Exception{
+    void publishArticle_returns_response_as_INTERNAL_SERVER_ERROR() throws Exception{
         doThrow(RuntimeException.class).when(jmsTemplate).convertAndSend(message,article);
         ResponseEntity<String> response = publishService.publishArticle(article);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
