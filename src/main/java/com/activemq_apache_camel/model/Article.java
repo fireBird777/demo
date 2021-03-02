@@ -39,3 +39,4 @@ public class Article implements Serializable {
 
 
 }
+

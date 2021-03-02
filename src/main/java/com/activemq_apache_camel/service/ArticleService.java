@@ -1,6 +1,6 @@
 package com.activemq_apache_camel.service;
 
-import com.activemq_apache_camel.exceptions.ArticleNotFound;
+import com.activemq_apache_camel.exception.ArticleNotFound;
 import com.activemq_apache_camel.repository.ArticleRepository;
 import com.activemq_apache_camel.model.Article;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,10 @@ public class ArticleService {
     @Autowired
     ArticleRepository articleDao;
 
+    /*
+    ToDo
+    throw an exception and return response body when there are no articles present
+     */
     @Transactional
     public List<Article> findAll()
     {
@@ -24,9 +28,10 @@ public class ArticleService {
     }
 
     @Transactional
-    public Article findById(int articleId)
-    {
+    public Article findById(int articleId) {
+
         return  articleDao.findById(articleId).orElseThrow(()->new ArticleNotFound(articleId));
+
     }
 
     @Transactional
@@ -53,7 +58,7 @@ public class ArticleService {
             return new ResponseEntity<>("deleted", HttpStatus.OK);
         }catch (Exception e)
         {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new ArticleNotFound(articleId);
         }
 
 

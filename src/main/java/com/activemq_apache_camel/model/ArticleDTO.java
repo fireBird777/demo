@@ -1,11 +1,11 @@
 package com.activemq_apache_camel.model;
 
 
-import lombok.Getter;
+import lombok.*;
 
 
-
-@Getter
+@Getter @Setter
+@Builder @NoArgsConstructor @AllArgsConstructor
 public class ArticleDTO {
 
     private int articleId;
