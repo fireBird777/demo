@@ -17,6 +17,10 @@ public class ArticleService {
     @Autowired
     ArticleRepository articleDao;
 
+    /*
+    ToDo
+    throw an exception and return response body when there are no articles present
+     */
     @Transactional
     public List<Article> findAll()
     {
