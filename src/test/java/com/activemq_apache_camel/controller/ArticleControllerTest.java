@@ -161,11 +161,12 @@ class ArticleControllerTest {
     }
     @Test
     void deleteById_returns_response_INTERNAL_SERVER_ERROR() throws Exception {
-        doReturn(new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR)).when(articleService).deleteById(anyInt());
-        mockMvc.perform(MockMvcRequestBuilders.delete("/articles/1")).andExpect(status().is5xxServerError());
+        doReturn(new ResponseEntity<>("error", HttpStatus.NOT_FOUND)).when(articleService).deleteById(anyInt());
+        mockMvc.perform(MockMvcRequestBuilders.delete("/articles/1")).andExpect(status().isNotFound());
         verify(articleService,times(1)).deleteById(1);
     }
 
+    // write test for delete by id retuns BAD REQuest status code
 
 
 }
