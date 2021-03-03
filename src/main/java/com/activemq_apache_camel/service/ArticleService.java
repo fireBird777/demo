@@ -1,21 +1,28 @@
 package com.activemq_apache_camel.service;
 
-import com.activemq_apache_camel.exception.ArticleNotFound;
+import com.activemq_apache_camel.exception.ArticleNotFoundException;
 import com.activemq_apache_camel.repository.ArticleRepository;
 import com.activemq_apache_camel.model.Article;
+import com.activemq_apache_camel.schema_validator.SchemaValidator;
+import org.everit.json.schema.Schema;
+import org.everit.json.schema.loader.SchemaLoader;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.InputStream;
 import java.util.List;
 
 @Service
 public class ArticleService {
 
     @Autowired
-    ArticleRepository articleDao;
+    ArticleRepository articleRepository;
+
 
     /*
     ToDo
@@ -24,13 +31,13 @@ public class ArticleService {
     @Transactional
     public List<Article> findAll()
     {
-        return  articleDao.findAll();
+        return  articleRepository.findAll();
     }
 
     @Transactional
     public Article findById(int articleId) {
 
-        return  articleDao.findById(articleId).orElseThrow(()->new ArticleNotFound(articleId));
+        return  articleRepository.findById(articleId).orElseThrow(()->new ArticleNotFoundException(articleId));
 
     }
 
@@ -40,7 +47,7 @@ public class ArticleService {
 
         try
         {
-            articleDao.save(article);
+            articleRepository.save(article);
             return new ResponseEntity<>("saved", HttpStatus.OK);
         }catch (Exception e)
         {
@@ -54,11 +61,11 @@ public class ArticleService {
 
         try
         {
-            articleDao.deleteById(articleId);
+            articleRepository.deleteById(articleId);
             return new ResponseEntity<>("deleted", HttpStatus.OK);
         }catch (Exception e)
         {
-            throw new ArticleNotFound(articleId);
+            throw new ArticleNotFoundException(articleId);
         }
 
 

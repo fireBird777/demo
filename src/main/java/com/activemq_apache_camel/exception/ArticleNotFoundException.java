@@ -2,8 +2,8 @@ package com.activemq_apache_camel.exception;
 
 import java.util.function.Supplier;
 
-public class ArticleNotFound extends RuntimeException{
-    public ArticleNotFound(int id)
+public class ArticleNotFoundException extends RuntimeException{
+    public ArticleNotFoundException(int id)
     {
         super("Article not found :"+id);
     }
