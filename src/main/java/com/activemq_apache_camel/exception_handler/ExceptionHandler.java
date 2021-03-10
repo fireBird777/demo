@@ -1,6 +1,7 @@
 package com.activemq_apache_camel.exception_handler;
 
 import com.activemq_apache_camel.exception.ArticleNotFoundException;
+import com.activemq_apache_camel.exception.InvalidInputException;
 import com.activemq_apache_camel.model.CustomErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,16 @@ public class ExceptionHandler {
         error.setStatus(HttpStatus.NOT_FOUND.value());
         error.setLocalDateTime(LocalDateTime.now());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+
+
+    }
+    @org.springframework.web.bind.annotation.ExceptionHandler(InvalidInputException.class)
+    public ResponseEntity<CustomErrorResponse> invalidInputHandle(InvalidInputException ex , WebRequest request) {
+        CustomErrorResponse error = new CustomErrorResponse();
+        error.setError(ex.getMessage());
+        error.setStatus(HttpStatus.BAD_REQUEST.value());
+        error.setLocalDateTime(LocalDateTime.now());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 
 
     }

@@ -1,7 +1,9 @@
 package com.activemq_apache_camel.controller;
 
+import com.activemq_apache_camel.exception.InvalidInputException;
 import com.activemq_apache_camel.model.Article;
 import com.activemq_apache_camel.model.ArticleDTO;
+import com.activemq_apache_camel.model.CustomErrorResponse;
 import com.activemq_apache_camel.service.PublishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,19 +21,9 @@ public class PublishController {
 
 
     @PostMapping("/articles")
-    public ResponseEntity<String> publishArticle(@RequestBody ArticleDTO article)
-    {
-        Article theArticle = Article.builder()
-                .articleId(article.getArticleId())
-                .authorEmailAddress(article.getAuthorEmailAddress())
-                .isActive(article.isActive())
-                .authorName(article.getAuthorName())
-                .isPublished(article.isPublished())
-                .noOfPages(article.getNoOfPages())
-                .shortTitle(article.getShortTitle())
-                .title(article.getTitle()).build();
+    public ResponseEntity<String> publishArticle(@RequestBody ArticleDTO articleDTO) throws Exception {
 
-      return publishService.publishArticle(theArticle);
+      return publishService.publishArticle(articleDTO);
 
     }
 

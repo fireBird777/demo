@@ -21,17 +21,28 @@ public class ArticleController {
     @PostMapping("/articles")
     public  ResponseEntity<String> save(@RequestBody ArticleDTO article)
     {
-        Article theArticle = Article.builder()
-                .articleId(article.getArticleId())
-                .authorEmailAddress(article.getAuthorEmailAddress())
-                .isActive(article.isActive())
-                .authorName(article.getAuthorName())
-                .isPublished(article.isPublished())
-                .noOfPages(article.getNoOfPages())
-                .shortTitle(article.getShortTitle())
-                .title(article.getTitle()).build();
+        //here boolean value is null hence is throwing an exception
+        System.out.print(article.getAuthorEmailAddress());
+        try {
+            Article theArticle = Article.builder()
+                    .articleId((Integer) article.getArticleId())
+                    .authorEmailAddress((String) article.getAuthorEmailAddress())
+                    .isActive((Boolean) article.getIsActive())
+                    .authorName((String) article.getAuthorName())
+                    .isPublished((Boolean) article.getIsPublished())
+                    .noOfPages((Integer) article.getNoOfPages())
+                    .shortTitle((String) article.getShortTitle())
+                    .title((String) article.getTitle()).build();
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
-        return articleService.save(theArticle);
+
+       // System.out.print(theArticle.isActive());
+
+        //return articleService.save(theArticle);
+        return null;
     }
 
 
