@@ -8,12 +8,15 @@ import lombok.*;
 @Builder @NoArgsConstructor @AllArgsConstructor
 public class ArticleDTO {
 
-    private int articleId;
-    private String title;
-    private String shortTitle;
-    private int noOfPages;
-    private String authorName;
-    private String authorEmailAddress;
-    private boolean isActive;
-    private boolean isPublished;
+    private Object articleId;
+    private Object title;
+    private Object shortTitle;
+    private Object noOfPages;
+    private Object authorName;
+    private Object authorEmailAddress;
+    private Object isActive;
+    private Object isPublished;
+
+
+
 }

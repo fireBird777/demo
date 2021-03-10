@@ -1,13 +1,16 @@
 package com.activemq_apache_camel.service;
 
+
 import com.activemq_apache_camel.model.Article;
+import com.activemq_apache_camel.model.ArticleDTO;
 import com.activemq_apache_camel.schema_validator.SchemaValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
+
+import org.everit.json.schema.ValidationException;
+
 
 
 @Service
@@ -20,23 +23,31 @@ public class PublishService {
     SchemaValidator schemaValidator;
 
     @Value("${messageQueue}")
-    private  String messageQueue ;
-
-    private static final String responseMessage = "sent";
+    private String messageQueue;
 
 
-    public ResponseEntity<String> publishArticle(Article article)
-    {
 
-        try
-        {
-            schemaValidator.validateArticleAgainstSchema(article);
-            jmsTemplate.convertAndSend(messageQueue,article);
-            return new ResponseEntity<>(responseMessage, HttpStatus.OK);
-        }catch (Exception e)
-        {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public void publishArticle(ArticleDTO articleDTO) throws ValidationException {
+
+
+        schemaValidator.validateArticleAgainstSchema(articleDTO);
+
+        Article article = Article.builder()
+                .articleId((Integer) articleDTO.getArticleId())
+                .authorEmailAddress((String) articleDTO.getAuthorEmailAddress())
+                .isActive((Boolean) articleDTO.getIsActive())
+                .authorName((String) articleDTO.getAuthorName())
+                .isPublished((Boolean) articleDTO.getIsPublished())
+                .noOfPages((Integer) articleDTO.getNoOfPages())
+                .shortTitle((String) articleDTO.getShortTitle())
+                .title((String) articleDTO.getTitle()).build();
+
+
+        jmsTemplate.convertAndSend(messageQueue, article);
+
 
     }
 }
+
+
+

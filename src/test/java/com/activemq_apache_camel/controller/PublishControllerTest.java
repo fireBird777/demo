@@ -5,6 +5,7 @@ import com.activemq_apache_camel.model.ArticleDTO;
 import com.activemq_apache_camel.service.PublishService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.everit.json.schema.ValidationException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,16 +58,27 @@ class PublishControllerTest {
     @Test
     void publishArticle_returns_response_OK() throws Exception {
         ObjectMapper om = new ObjectMapper();
-        when(publishService.publishArticle(any(Article.class))).thenReturn(new ResponseEntity<>("saved", HttpStatus.OK));
+        String response = null;
+        doNothing().when(publishService).publishArticle(articleDTO);
         MvcResult result = mockMvc.perform(post("/publisher/articles")
                 .content(om.writeValueAsString(articleDTO))
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
         assertEquals(HttpStatus.OK.value(),result.getResponse().getStatus());
-        verify(publishService,times(1)).publishArticle(any(Article.class));
+        verify(publishService,times(1)).publishArticle(any(ArticleDTO.class));
     }
 
     @Test
-    void publishArticle_returns_response_INTERNAL_SERVER_ERROR() {
+    void publishArticle_returns_response_BAD_REQUEST() throws Exception {
+
+        ObjectMapper om = new ObjectMapper();
+        String response = null;
+        doThrow(ValidationException.class).when(publishService).publishArticle(any());
+        MvcResult result = mockMvc.perform(post("/publisher/articles")
+                .content(om.writeValueAsString(articleDTO))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest()).andReturn();
+        assertEquals(HttpStatus.BAD_REQUEST.value(),result.getResponse().getStatus());
+        verify(publishService,times(1)).publishArticle(any(ArticleDTO.class));
     }
 }

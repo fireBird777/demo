@@ -32,10 +32,10 @@ public class Article implements Serializable {
     private String authorEmailAddress;
 
     @Column(name = "is_active" ,nullable = false)
-    private boolean isActive;
+    private Boolean isActive;
 
     @Column(name = "is_published", nullable = false)
-    private boolean isPublished;
+    private Boolean isPublished;
 
 
 }

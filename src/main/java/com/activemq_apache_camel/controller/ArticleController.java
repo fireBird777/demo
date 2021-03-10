@@ -21,16 +21,15 @@ public class ArticleController {
     @PostMapping("/articles")
     public  ResponseEntity<String> save(@RequestBody ArticleDTO article)
     {
-        Article theArticle = Article.builder()
-                .articleId(article.getArticleId())
-                .authorEmailAddress(article.getAuthorEmailAddress())
-                .isActive(article.isActive())
-                .authorName(article.getAuthorName())
-                .isPublished(article.isPublished())
-                .noOfPages(article.getNoOfPages())
-                .shortTitle(article.getShortTitle())
-                .title(article.getTitle()).build();
-
+            Article theArticle = Article.builder()
+                    .articleId((Integer) article.getArticleId())
+                    .authorEmailAddress((String) article.getAuthorEmailAddress())
+                    .isActive((Boolean) article.getIsActive())
+                    .authorName((String) article.getAuthorName())
+                    .isPublished((Boolean) article.getIsPublished())
+                    .noOfPages((Integer) article.getNoOfPages())
+                    .shortTitle((String) article.getShortTitle())
+                    .title((String) article.getTitle()).build();
         return articleService.save(theArticle);
     }
 

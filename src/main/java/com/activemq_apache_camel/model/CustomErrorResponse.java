@@ -3,8 +3,8 @@ package com.activemq_apache_camel.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -12,5 +12,4 @@ import java.time.LocalDateTime;
 public class CustomErrorResponse {
     private String error;
     private int status;
-    private LocalDateTime localDateTime;
 }

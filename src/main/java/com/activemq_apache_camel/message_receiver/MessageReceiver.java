@@ -16,11 +16,6 @@ public class MessageReceiver  extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
-        //Insert/update Route
-        //way 1
-       // from("jms:queue:IBOUND").bean(ArticleController.class,"save(${body}, true)");
-
-        //way 2
         from("jms:queue:"+messageQueue).marshal().json(JsonLibrary.Jackson).to("http://localhost:8080/articles");
     }
 }
